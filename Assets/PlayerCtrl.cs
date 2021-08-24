@@ -69,10 +69,11 @@ public class PlayerCtrl : MonoBehaviour
 
         PlayWalkingAnimation(dy, dx);
 
-        RigidbodyMovement(dy, dx);
+        //RigidbodyMovement_3P(dy, dx);
+        RigidbodyMovement_1P(dy, dx);
     }
 
-    void RigidbodyMovement(float dy, float dx)
+    void RigidbodyMovement_3P(float dy, float dx)
     {
         float speed = 3.5f;
         Vector3 direction = (new Vector3(dx, 0, dy)).normalized;
@@ -83,6 +84,21 @@ public class PlayerCtrl : MonoBehaviour
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.MoveRotation(Quaternion.LookRotation(movement));
         }
+    }
+
+    void RigidbodyMovement_1P(float dy, float dx)
+    {
+        float move_speed = 3.5f;
+        Vector3 movement = this.transform.forward * dy + transform.right * dx; // model space -> world space
+        rigidbody.MovePosition(transform.position + movement.normalized * move_speed * Time.fixedDeltaTime);
+
+        float rotate_speed = 12.5f;
+        Vector3 rotateAngle = new Vector3(0, this.transform.eulerAngles.y + Input.GetAxis("Mouse X") * rotate_speed, 0);
+        rigidbody.MoveRotation(Quaternion.Euler(rotateAngle));
+
+        //float rotate_speed2 = 12.5f;
+        //this.transform.Rotate(0, Input.GetAxis("Mouse X") * rotate_speed2, 0, Space.Self);
+        ////this.transform.Rotate(0, Input.GetAxis("Mouse X") * rotate_speed2, 0, Space.World);
     }
 
 
