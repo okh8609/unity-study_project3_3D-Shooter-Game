@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerCtrl : MonoBehaviour
 
     public Camera camera1;
     public Camera camera3;
+
+    public Slider HP_bar;
 
     // Start is called before the first frame update
     void Start()
@@ -128,5 +131,19 @@ public class PlayerCtrl : MonoBehaviour
         ////this.transform.Rotate(0, Input.GetAxis("Mouse X") * rotate_speed2, 0, Space.World);
     }
 
+    void Die()
+    {
+        this.enabled = false;
+        this.HP_bar.fillRect.gameObject.SetActive(false);
+        StartCoroutine(Clear());
+    }
+    IEnumerator Clear()
+    {
+        camera1.enabled = false;
+        camera3.enabled = true;
 
+        yield return new WaitForSeconds(7.5f);
+
+        Destroy(this.gameObject);
+    }
 }

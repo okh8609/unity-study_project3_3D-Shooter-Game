@@ -23,7 +23,10 @@ public class CameraCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 target_pos = target.transform.position + offset;
-        this.transform.position = Vector3.Lerp(this.transform.position, target_pos, 10.0f * Time.fixedDeltaTime);
+        if(target!=null)
+        {
+            Vector3 target_pos = target.transform.position + offset;
+            this.transform.position = Vector3.Lerp(this.transform.position, target_pos, 10.0f * Time.fixedDeltaTime);
+        }
     }
 }
