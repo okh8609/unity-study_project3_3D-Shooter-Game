@@ -75,35 +75,47 @@ public class PlayerCtrl : MonoBehaviour
         //RigidbodyMovement_3P(dy, dx);
         //RigidbodyMovement_1P(dy, dx);
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             camera1.enabled = !camera1.enabled;
             camera3.enabled = !camera3.enabled;
         }
 
-        if(camera1.enabled)
+        if (camera1.enabled)
             RigidbodyMovement_1P(dy, dx);
-        else if(camera3.enabled)
+        else if (camera3.enabled)
             RigidbodyMovement_3P(dy, dx);
-
     }
 
     void RigidbodyMovement_3P(float dy, float dx)
     {
-        float speed = 3.5f;
+        float speed = 5.0f;
         Vector3 direction = (new Vector3(dx, 0, dy)).normalized;
         Vector3 movement = direction * speed * Time.fixedDeltaTime;
 
         if (movement != Vector3.zero)
         {
             rigidbody.MovePosition(transform.position + movement);
-            rigidbody.MoveRotation(Quaternion.LookRotation(movement));
+            //rigidbody.MoveRotation(Quaternion.LookRotation(movement));
         }
+
+        #region 取得滑鼠位置並旋轉
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        if (Physics.Raycast(ray, out raycastHit, 200.0f))
+        {
+            Vector3 to_mouse = raycastHit.point - this.transform.position;
+            to_mouse.y = 0;
+            if (to_mouse.magnitude > 0.75f)
+                this.rigidbody.MoveRotation(Quaternion.LookRotation(to_mouse));
+        }
+        #endregion
     }
 
     void RigidbodyMovement_1P(float dy, float dx)
     {
-        float move_speed = 3.5f;
+        float move_speed = 5.0f;
         Vector3 movement = this.transform.forward * dy + transform.right * dx; // model space -> world space
         rigidbody.MovePosition(transform.position + movement.normalized * move_speed * Time.fixedDeltaTime);
 
