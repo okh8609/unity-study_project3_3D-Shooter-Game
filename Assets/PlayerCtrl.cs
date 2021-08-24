@@ -8,6 +8,9 @@ public class PlayerCtrl : MonoBehaviour
     CharacterController cc;
     Rigidbody rigidbody;
 
+    public Camera camera1;
+    public Camera camera3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +73,19 @@ public class PlayerCtrl : MonoBehaviour
         PlayWalkingAnimation(dy, dx);
 
         //RigidbodyMovement_3P(dy, dx);
-        RigidbodyMovement_1P(dy, dx);
+        //RigidbodyMovement_1P(dy, dx);
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            camera1.enabled = !camera1.enabled;
+            camera3.enabled = !camera3.enabled;
+        }
+
+        if(camera1.enabled)
+            RigidbodyMovement_1P(dy, dx);
+        else if(camera3.enabled)
+            RigidbodyMovement_3P(dy, dx);
+
     }
 
     void RigidbodyMovement_3P(float dy, float dx)
