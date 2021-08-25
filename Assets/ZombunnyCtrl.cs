@@ -26,6 +26,11 @@ public class ZombunnyCtrl : MonoBehaviour
     {
         if (target != null)
             agent.SetDestination(target.transform.position);
+        else
+        {
+            agent.enabled = false;
+            this.GetComponent<Animator>().SetBool("GameOver", true);
+        }
     }
 
     void Die()
@@ -35,11 +40,25 @@ public class ZombunnyCtrl : MonoBehaviour
         this.GetComponent<HurtCtrl>().enabled = false;
         this.agent.enabled = false;
         StartCoroutine(Clear());
+        StartCoroutine(OffLight(this.GetComponent<Light>()));
     }
 
     IEnumerator Clear()
     {
         yield return new WaitForSeconds(3.5f);
         Destroy(this.gameObject);
+    }
+
+    IEnumerator OffLight(Light l)
+    {
+        l.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].DisableKeyword("_EMISSION");
+        while (l.intensity > 0.05f)
+        {
+            //print(l.intensity);
+            l.intensity -= 0.05f;
+            yield return new WaitForSeconds(0.08f);
+        }
+        l.enabled = false;
+        //yield return new WaitForSeconds(0.0f);
     }
 }
