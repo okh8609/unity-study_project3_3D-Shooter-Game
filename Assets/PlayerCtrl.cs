@@ -14,12 +14,15 @@ public class PlayerCtrl : MonoBehaviour
 
     public Slider HP_bar;
 
+    int floor_id;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
         cc = this.GetComponent<CharacterController>();
         rigidbody = this.GetComponent<Rigidbody>();
+        floor_id = LayerMask.GetMask("Floor");
     }
 
     //// Update is called once per frame
@@ -93,6 +96,7 @@ public class PlayerCtrl : MonoBehaviour
     void RigidbodyMovement_3P(float dy, float dx)
     {
         float speed = 5.0f;
+        if (Input.GetKey(KeyCode.Space)) speed *= 2.0f;
         Vector3 direction = (new Vector3(dx, 0, dy)).normalized;
         Vector3 movement = direction * speed * Time.fixedDeltaTime;
 
@@ -103,10 +107,9 @@ public class PlayerCtrl : MonoBehaviour
         }
 
         #region 取得滑鼠位置並旋轉
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
-        if (Physics.Raycast(ray, out raycastHit, 200.0f))
+        if (Physics.Raycast(ray, out raycastHit, 200.0f, floor_id))
         {
             Vector3 to_mouse = raycastHit.point - this.transform.position;
             to_mouse.y = 0;
@@ -119,6 +122,7 @@ public class PlayerCtrl : MonoBehaviour
     void RigidbodyMovement_1P(float dy, float dx)
     {
         float move_speed = 5.0f;
+        if (Input.GetKey(KeyCode.Space)) move_speed *= 2.0f;
         Vector3 movement = this.transform.forward * dy + transform.right * dx; // model space -> world space
         rigidbody.MovePosition(transform.position + movement.normalized * move_speed * Time.fixedDeltaTime);
 
@@ -135,6 +139,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         this.enabled = false;
         this.HP_bar.fillRect.gameObject.SetActive(false);
+        this.GetComponentInChildren<GunCtrl>().enabled = false;
         StartCoroutine(Clear());
     }
     IEnumerator Clear()

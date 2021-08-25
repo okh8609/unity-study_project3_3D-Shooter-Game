@@ -26,7 +26,8 @@ public class ZombunnyCtrl : MonoBehaviour
     void Die()
     {
         this.enabled = false;
-
+        this.GetComponent<HurtCtrl>().enabled = false;
+        this.agent.enabled = false;
         StartCoroutine(Clear());
     }
 

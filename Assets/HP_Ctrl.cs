@@ -23,6 +23,7 @@ public class HP_Ctrl : MonoBehaviour
         if (hurt && HP > 0.001) // 且必須是對手
         {
             HP -= hurt.GetHurt();
+            //print($"角色：{this.name} 之 HP = {this.HP} [BY:{collision.gameObject.name}]");
             this.GetComponent<Animator>().SetFloat("HP", HP);
             if (this.name == "Player")
                 this.gameObject.GetComponent<PlayerCtrl>().HP_bar.value = HP;
