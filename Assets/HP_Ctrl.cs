@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HP_Ctrl : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HP_Ctrl : MonoBehaviour
     public float hurt_period;
     float next_can_hurt;
 
+    public Image HurtMask;
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +39,14 @@ public class HP_Ctrl : MonoBehaviour
             {
                 PlayGetHurtAudio();
                 HP -= power;
+                //print($"角色：{this.name} 之 HP = {this.HP} [BY:{collision.gameObject.name}]");
+                this.GetComponent<Animator>().SetFloat("HP", HP);
+                if (this.name == "Player")
+                {
+                    this.gameObject.GetComponent<PlayerCtrl>().HP_bar.value = HP;
+                    StartCoroutine(ShowHurtMask());
+                }
             }
-            //print($"角色：{this.name} 之 HP = {this.HP} [BY:{collision.gameObject.name}]");
-            this.GetComponent<Animator>().SetFloat("HP", HP);
-            if (this.name == "Player")
-                this.gameObject.GetComponent<PlayerCtrl>().HP_bar.value = HP;
             if (HP < 0.001) SendMessage("Die");
         }
     }
@@ -50,5 +55,17 @@ public class HP_Ctrl : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(GetHurtAudio, this.transform.position, 1);
         return this;
+    }
+
+    IEnumerator ShowHurtMask()
+    {
+        Color c = Color.red;
+        c.a = 20.0f / 255.0f;
+
+        this.HurtMask.color = c;
+
+        yield return new WaitForSeconds(0.1f);
+
+        this.HurtMask.color = Color.clear;
     }
 }

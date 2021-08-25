@@ -93,6 +93,9 @@ public class PlayerCtrl : MonoBehaviour
             RigidbodyMovement_1P(dy, dx);
         else if (camera3.enabled)
             RigidbodyMovement_3P(dy, dx);
+
+        camera1.GetComponent<AudioListener>().enabled = camera1.enabled;
+        camera3.GetComponent<AudioListener>().enabled = camera3.enabled;
     }
 
     void RigidbodyMovement_3P(float dy, float dx)
