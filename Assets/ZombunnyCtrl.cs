@@ -14,8 +14,11 @@ public class ZombunnyCtrl : MonoBehaviour
     void Start()
     {
         target = GameObject.Find("Player");
-        agent = this.GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = this.GetComponent<CapsuleCollider>().radius + target.GetComponent<CapsuleCollider>().radius - 0.05f;
+        if (target != null)
+        {
+            agent = this.GetComponent<NavMeshAgent>();
+            agent.stoppingDistance = this.GetComponent<CapsuleCollider>().radius + target.GetComponent<CapsuleCollider>().radius - 0.05f;
+        }
     }
 
     // Update is called once per frame

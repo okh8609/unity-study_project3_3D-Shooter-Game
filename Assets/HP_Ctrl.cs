@@ -8,11 +8,15 @@ public class HP_Ctrl : MonoBehaviour
 
     public AudioClip GetHurtAudio;
 
+    public float hurt_period;
+    float next_can_hurt;
+
 
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<Animator>().SetFloat("HP", HP);
+        next_can_hurt = Time.time;
     }
 
     // Update is called once per frame
@@ -23,8 +27,11 @@ public class HP_Ctrl : MonoBehaviour
     {
         HurtCtrl hurt = collision.gameObject.GetComponent<HurtCtrl>();
 
-        if (hurt && HP > 0.001) // 且必須是對手
+        if (hurt && HP > 0.001
+            && collision.gameObject.GetComponent<HP_Ctrl>().HP > 0.001
+            && next_can_hurt < Time.time) // 且必須是對手
         {
+            next_can_hurt = Time.time + hurt_period;
             float power = hurt.GetHurt();
             if (power > 0)
             {

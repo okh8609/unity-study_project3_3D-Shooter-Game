@@ -140,6 +140,7 @@ public class PlayerCtrl : MonoBehaviour
     void Die()
     {
         AudioSource.PlayClipAtPoint(DeathAudio, this.transform.position, 1);
+        this.GetComponent<Rigidbody>().drag = 1.0e6f;
         this.enabled = false;
         this.HP_bar.fillRect.gameObject.SetActive(false);
         this.GetComponentInChildren<GunCtrl>().enabled = false;
