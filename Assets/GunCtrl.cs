@@ -15,6 +15,8 @@ public class GunCtrl : MonoBehaviour
 
     public ParticleSystem hit_particle;
 
+    public AudioClip GunShot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,8 @@ public class GunCtrl : MonoBehaviour
 
     void shoot()
     {
+        AudioSource.PlayClipAtPoint(GunShot, this.transform.position, 1);
+
         Ray ray = new Ray();
         RaycastHit raycastHit = new RaycastHit(); // ¼uµÛÂI
 
@@ -49,9 +53,10 @@ public class GunCtrl : MonoBehaviour
             line.SetPosition(1, raycastHit.point);
             StartCoroutine(PlayParticle(Instantiate(hit_particle, raycastHit.point, Quaternion.Euler(raycastHit.normal))));
             if (raycastHit.collider.GetComponent<ZombunnyCtrl>())
+            {
                 raycastHit.collider.GetComponent<Animator>().SetFloat("HP",
-                raycastHit.collider.GetComponent<HP_Ctrl>().HP -= 5.0f);
-
+                    raycastHit.collider.GetComponent<HP_Ctrl>().PlayGetHurtAudio().HP -= 5.0f);
+            }
         }
         else
         {

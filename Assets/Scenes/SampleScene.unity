@@ -891,6 +891,7 @@ MonoBehaviour:
   camera1: {fileID: 1654825734}
   camera3: {fileID: 963194227}
   HP_bar: {fileID: 1843658854}
+  DeathAudio: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
 --- !u!143 &329894530
 CharacterController:
   m_ObjectHideFlags: 0
@@ -952,6 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  GetHurtAudio: {fileID: 8300000, guid: 9922a12f34d0a084aab32de985459723, type: 3}
 --- !u!1 &340649517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,6 +1825,7 @@ MonoBehaviour:
   light: {fileID: 591150093}
   plight: {fileID: 683406556}
   hit_particle: {fileID: 19800000, guid: 440ae67680e63ba49b9800df8b4e3257, type: 3}
+  GunShot: {fileID: 8300000, guid: fa7f046ce321d4021b5e753bf1152916, type: 3}
 --- !u!120 &591150092
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3013,7 +3016,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -3467,6 +3470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb0742ecdf015b44907fcab8671f3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathAudio: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
 --- !u!114 &1074492815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3479,7 +3483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168840a806b00d14c926c8fec5455ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 5
+  power: 10
   period: 3.5
 --- !u!114 &1074492816
 MonoBehaviour:
@@ -3494,6 +3498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 15
+  GetHurtAudio: {fileID: 8300000, guid: 02e6208ec76314158a9f548f51fe9f11, type: 3}
 --- !u!1 &1092467906
 GameObject:
   m_ObjectHideFlags: 0

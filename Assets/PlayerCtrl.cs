@@ -16,6 +16,8 @@ public class PlayerCtrl : MonoBehaviour
 
     int floor_id;
 
+    public AudioClip DeathAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -137,6 +139,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void Die()
     {
+        AudioSource.PlayClipAtPoint(DeathAudio, this.transform.position, 1);
         this.enabled = false;
         this.HP_bar.fillRect.gameObject.SetActive(false);
         this.GetComponentInChildren<GunCtrl>().enabled = false;
