@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunCtrl : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GunCtrl : MonoBehaviour
 
     public AudioSource GunShot;
 
+    public RawImage Crosshair;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,18 @@ public class GunCtrl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && Time.timeScale > 0.0f)
             shoot();
+    }
+
+    private void OnGUI()
+    {
+        Ray ray = new Ray();
+        ray.origin = this.transform.position;
+        ray.direction = this.transform.forward;
+        RaycastHit raycastHit = new RaycastHit(); // ¼uµÛÂI
+        if (Physics.Raycast(ray, out raycastHit, 100.0f, shootable_id) && raycastHit.collider.tag == "Evil")
+            Crosshair.color = Color.red;
+        else
+            Crosshair.color = Color.white;
     }
 
     void shoot()

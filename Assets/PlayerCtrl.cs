@@ -18,6 +18,8 @@ public class PlayerCtrl : MonoBehaviour
 
     public AudioSource DeathAudio;
 
+    public RawImage Crosshair;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +98,7 @@ public class PlayerCtrl : MonoBehaviour
 
         camera1.GetComponent<AudioListener>().enabled = camera1.enabled;
         camera3.GetComponent<AudioListener>().enabled = camera3.enabled;
+        Crosshair.enabled = camera1.enabled;
     }
 
     void RigidbodyMovement_3P(float dy, float dx)
