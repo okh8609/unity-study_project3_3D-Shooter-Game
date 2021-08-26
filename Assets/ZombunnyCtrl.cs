@@ -8,7 +8,7 @@ public class ZombunnyCtrl : MonoBehaviour
     NavMeshAgent agent;
     GameObject target;
 
-    public AudioClip DeathAudio;
+    public AudioSource DeathAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,8 @@ public class ZombunnyCtrl : MonoBehaviour
 
     void Die()
     {
-        AudioSource.PlayClipAtPoint(DeathAudio, this.transform.position, 1);
+        //AudioSource.PlayClipAtPoint(DeathAudio, this.transform.position, 1);
+        DeathAudio.Play();
         this.enabled = false;
         this.GetComponent<HurtCtrl>().enabled = false;
         this.agent.enabled = false;

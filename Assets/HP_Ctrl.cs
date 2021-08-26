@@ -7,7 +7,7 @@ public class HP_Ctrl : MonoBehaviour
 {
     public float HP;
 
-    public AudioClip GetHurtAudio;
+    public AudioSource GetHurtAudio;
 
     public float hurt_period;
     float next_can_hurt;
@@ -53,14 +53,15 @@ public class HP_Ctrl : MonoBehaviour
 
     public HP_Ctrl PlayGetHurtAudio()
     {
-        AudioSource.PlayClipAtPoint(GetHurtAudio, this.transform.position, 1);
+        //AudioSource.PlayClipAtPoint(GetHurtAudio, this.transform.position, 1);
+        GetHurtAudio.Play();
         return this;
     }
 
     IEnumerator ShowHurtMask()
     {
         Color c = Color.red;
-        c.a = 20.0f / 255.0f;
+        c.a = 20.0f / 256.0f;
 
         this.HurtMask.color = c;
 

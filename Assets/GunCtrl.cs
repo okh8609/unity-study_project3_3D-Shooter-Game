@@ -15,7 +15,7 @@ public class GunCtrl : MonoBehaviour
 
     public ParticleSystem hit_particle;
 
-    public AudioClip GunShot;
+    public AudioSource GunShot;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +30,14 @@ public class GunCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.timeScale > 0.0f)
             shoot();
     }
 
     void shoot()
     {
-        AudioSource.PlayClipAtPoint(GunShot, this.transform.position, 1);
+        //AudioSource.PlayClipAtPoint(GunShot, this.transform.position, 1);
+        GunShot.Play();
 
         Ray ray = new Ray();
         RaycastHit raycastHit = new RaycastHit(); // ¼uµÛÂI
